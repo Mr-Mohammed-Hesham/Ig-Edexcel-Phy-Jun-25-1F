@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ IGCSE Physics Comprehensive Exam | Mr. Mohammed Hesham</title>
+<meta name="description" content="امتحان تفاعلي شامل في الفيزياء - IGCSE Physics">
+<meta name="author" content="Mr. Mohammed Hesham">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Cairo', sans-serif; }
+body.en-mode { font-family: 'Inter', sans-serif; }
+.arabic-math { font-family: 'Amiri', 'Cairo', serif; }
+.correct { background-color: #dcfce7 !important; border-color: #16a34a !important; }
+.incorrect { background-color: #fee2e2 !important; border-color: #dc2626 !important; }
+.timer-warning { color: #dc2626 !important; animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.7; } }
+@media print { .no-print { display: none !important; } }
+.success-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.875rem; }
+.grade-excellent { background: #dcfce7; color: #166534; }
+.grade-good { background: #fef3c7; color: #92400e; }
+.grade-pass { background: #dbeafe; color: #1e40af; }
+.grade-fail { background: #fee2e2; color: #991b1b; }
+.lang-switch {
+position: fixed; top: 16px; left: 16px; z-index: 100;
+background: white; padding: 6px; border-radius: 30px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; gap: 4px;
+border: 2px solid #dc2626;
+}
+[dir="ltr"] .lang-switch { left: auto; right: 16px; }
+.lang-btn {
+padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: bold;
+transition: all 0.3s; border: none; font-size: 0.875rem;
+background: transparent; color: #6b7280;
+}
+.lang-btn.active { background: #dc2626; color: white; box-shadow: 0 2px 6px rgba(220,38,38,0.4); }
+.lang-btn:hover:not(.active) { background: #fef2f2; color: #dc2626; }
+.shuffle-badge {
+display: inline-block;
+background: linear-gradient(135deg, #dc2626, #b91c1c);
+color: white; padding: 4px 12px; border-radius: 20px;
+font-size: 0.75rem; font-weight: bold; margin-right: 8px;
+}
+.math-display {
+display: inline-block; direction: ltr;
+font-family: 'Amiri', 'Times New Roman', serif;
+font-size: 1.2em; font-style: italic;
+padding: 2px 8px; background: #fef2f2;
+border-radius: 6px; margin: 2px;
+color: #b91c1c; font-weight: 600; letter-spacing: 0.5px;
+}
+.save-indicator {
+position: fixed; bottom: 20px; left: 20px; z-index: 200;
+background: #10b981; color: white; padding: 8px 16px;
+border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+opacity: 0; transition: opacity 0.3s; pointer-events: none;
+box-shadow: 0 4px 12px rgba(16,185,129,0.4);
+}
+.save-indicator.show { opacity: 1; }
+.formula-box {
+background: #fef2f2; border: 2px solid #ef4444;
+border-radius: 8px; padding: 12px; margin: 10px 0;
+font-family: 'Amiri', serif;
+direction: ltr; text-align: center;
+}
+.svg-graph {
+display: block;
+margin: 12px auto;
+background: white;
+border: 2px solid #e5e7eb;
+border-radius: 12px;
+padding: 8px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.graph-container { text-align: center; margin: 10px 0; }
+.module-badge {
+display: inline-block;
+padding: 4px 16px;
+border-radius: 20px;
+font-weight: bold;
+font-size: 0.85rem;
+margin-bottom: 8px;
+}
+.module-1 { background: #fee2e2; color: #991b1b; }
+.module-2 { background: #fef3c7; color: #92400e; }
+.module-3 { background: #dbeafe; color: #1e40af; }
+.module-4 { background: #fce7f3; color: #9f1239; }
+.module-5 { background: #ecfdf5; color: #065f46; }
+</style>
+</head>
+<body class="bg-gradient-to-br from-red-50 to-orange-50 text-gray-800 p-4 md:p-8 min-h-screen">
+
+<div class="lang-switch no-print">
+<button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
+<button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+</div>
+
+<div id="saveIndicator" class="save-indicator">💾 <span data-ar="تم الحفظ" data-en="Saved">تم الحفظ</span></div>
+
+<div id="timer-container" class="max-w-5xl mx-auto mb-4 text-center no-print">
+<div class="bg-white p-4 rounded-2xl shadow-md inline-block border-2 border-red-100">
+<span class="text-gray-600 ml-2" data-ar=" الوقت المتبقي:" data-en=" Time Remaining:">⏰ الوقت المتبقي:</span>
+<span id="timer" class="text-2xl font-bold text-red-600 font-mono">120:00</span>
+<span class="shuffle-badge" data-ar=" IGCSE Physics - 30 سؤال" data-en="🎲 IGCSE Physics - 30 Questions">🎲 IGCSE Physics - 30 سؤال</span>
+</div>
+</div>
+
+<div class="max-w-5xl mx-auto mb-6 flex flex-wrap gap-3 justify-center no-print">
+<button onclick="toggleAnswers()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-xl font-medium transition shadow cursor-pointer" data-ar="👀 إظهار / إخفاء الإجابات" data-en="👀 Show / Hide Answers">👀 إظهار / إخفاء الإجابات</button>
+<button onclick="window.print()" class="bg-gray-700 hover:bg-gray-900 text-white px-5 py-2 rounded-xl font-medium transition shadow cursor-pointer" data-ar="🖨️ طباعة" data-en="🖨️ Print">🖨️ طباعة</button>
+<button onclick="reshuffleExam()" class="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-5 py-2 rounded-xl font-medium transition shadow cursor-pointer" data-ar="🔄 أسئلة جديدة" data-en="🔄 New Questions"> أسئلة جديدة</button>
+<button onclick="clearProgress()" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition shadow cursor-pointer" data-ar="🗑️ مسح التقدم" data-en="️ Clear Progress">🗑️ مسح التقدم</button>
+</div>
+
+<header class="max-w-5xl mx-auto bg-white p-6 rounded-2xl shadow-lg mb-8 border-4 border-red-400">
+<div class="text-center">
+<div class="inline-block bg-red-600 text-white px-4 py-1 rounded-full text-xs font-bold mb-2">IGCSE PHYSICS</div>
+<h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2" data-ar=" IGCSE Physics Comprehensive Exam" data-en="⚡ IGCSE Physics Comprehensive Exam"> IGCSE Physics Comprehensive Exam</h1>
+<h2 class="text-lg text-red-600 font-semibold" data-ar="30 سؤال في 5 أقسام - الضوء، الحركة، الذرة، الموجات، النووية" data-en="30 Questions in 5 Sections - Light, Motion, Atom, Waves, Nuclear">30 سؤال في 5 أقسام - الضوء، الحركة، الذرة، الموجات، النووية</h2>
+<p class="text-sm text-gray-600 mt-2" data-ar="البصريات، الطيف الكهرومغناطيسي، السرعة، الذرة، النشاط الإشعاعي، الجاذبية، القوى، الموجات" data-en="Optics, EM Spectrum, Velocity, Atom, Radioactivity, Gravity, Forces, Waves">البصريات، الطيف الكهرومغناطيسي، السرعة، الذرة، النشاط الإشعاعي، الجاذبية، القوى، الموجات</p>
+<p class="text-xs text-green-600 mt-2 font-semibold" data-ar="💾 يتم حفظ تقدمك تلقائياً" data-en="💾 Progress saved automatically">💾 يتم حفظ تقدمك تلقائياً</p>
+</div>
+<div class="mt-4 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+<span><span data-ar="📅 التاريخ:" data-en="📅 Date:">📅 التاريخ:</span> <input type="text" id="examDate" class="border-b-2 border-red-300 bg-transparent w-28 text-center"></span>
+<span><span data-ar="😊 الاسم:" data-en="😊 Name:">😊 الاسم:</span> <input type="text" id="studentName" class="border-b-2 border-red-300 bg-transparent w-32 text-center" placeholder="اكتب اسمك"></span>
+<span><span data-ar="🏫 الشعبة:" data-en="🏫 Class:">🏫 الشعبة:</span> <input type="text" id="studentClass" class="border-b-2 border-red-300 bg-transparent w-28 text-center" placeholder="الشعبة"></span>
+<span data-ar="⏰ المدة: 120 دقيقة" data-en="⏰ Duration: 120 min">⏰ المدة: 120 دقيقة</span>
+<span data-ar=" المجموع: 100 درجة" data-en="📊 Total: 100 pts">📊 المجموع: 100 درجة</span>
+</div>
+</header>
+
+<div class="max-w-5xl mx-auto mb-6 bg-white p-4 rounded-xl shadow-md border-2 border-red-200 no-print">
+<h3 class="font-bold text-lg mb-3 text-red-700 text-center" data-ar="📐 الصيغ الأساسية" data-en="📐 Key Formulae">📐 الصيغ الأساسية</h3>
+<div class="grid md:grid-cols-3 gap-3 text-sm">
+<div class="formula-box"><strong>Power:</strong> P = 1/f (diopters)</div>
+<div class="formula-box"><strong>Acceleration:</strong> a = Δv/Δt</div>
+<div class="formula-box"><strong>Force:</strong> F = m × a</div>
+<div class="formula-box"><strong>Weight:</strong> W = m × g</div>
+<div class="formula-box"><strong>KE:</strong> ½mv²</div>
+<div class="formula-box"><strong>GPE:</strong> mgh</div>
+<div class="formula-box"><strong>Half-life:</strong> N = N₀(½)ⁿ</div>
+<div class="formula-box"><strong>Wave:</strong> v = f × λ</div>
+</div>
+</div>
+
+<main class="max-w-5xl mx-auto space-y-8" id="exam-content"></main>
+
+<div class="text-center no-print pb-8 mt-8">
+<button onclick="gradeExam()" class="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white text-lg px-10 py-4 rounded-2xl font-bold shadow-xl transition transform hover:scale-105 cursor-pointer" data-ar="🎯 صحح إجاباتي!" data-en="🎯 Grade My Answers!"> صحح إجاباتي!</button>
+</div>
+
+<div id="results-panel" class="max-w-5xl mx-auto mt-8 bg-white p-8 rounded-2xl shadow-2xl border-4 border-red-400 hidden no-print">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 text-center" data-ar="🏆 نتيجتك يا بطل! " data-en="🏆 Your Results, Champion! 🏆">🏆 نتيجتك يا بطل! 🏆</h2>
+<div class="grid md:grid-cols-3 gap-4 mb-6">
+<div class="bg-red-50 p-4 rounded-xl text-center"><p data-ar="😊 الاسم" data-en="😊 Name">😊 الاسم</p><p id="res-name" class="font-bold text-xl text-red-600">-</p></div>
+<div class="bg-orange-50 p-4 rounded-xl text-center"><p data-ar="📅 التاريخ" data-en="📅 Date">📅 التاريخ</p><p id="res-date" class="font-bold text-xl text-orange-600">-</p></div>
+<div class="bg-red-50 p-4 rounded-xl text-center"><p data-ar="🌟 المجموع" data-en="🌟 Score">🌟 المجموع</p><p id="res-total" class="font-bold text-3xl text-red-600">0 / 100</p></div>
+</div>
+<div class="text-center mb-6">
+<span id="success-badge" class="success-badge grade-excellent">-</span>
+<p id="success-percent" class="text-4xl font-bold text-red-600 mt-2">0%</p>
+<p class="text-sm text-gray-500" data-ar="نسبة النجاح" data-en="Success Rate">نسبة النجاح</p>
+</div>
+<div class="bg-gray-50 p-6 rounded-xl mb-6">
+<h3 class="font-bold text-lg mb-4 text-gray-800" data-ar="📊 أدائك في كل قسم:" data-en="📊 Your Performance:">📊 أدائك في كل قسم:</h3>
+<div class="space-y-3" id="sections-performance"></div>
+</div>
+<div class="text-center mb-6">
+<button id="sendEmailBtn" onclick="sendResultsToEmail()" class="bg-gradient-to-r from-red-600 to-orange-600 text-white text-lg px-8 py-3 rounded-2xl font-bold shadow-xl transition cursor-pointer" data-ar="📧 أرسل النتيجة للمعلم" data-en="📧 Send Results to Teacher">📧 أرسل النتيجة للمعلم</button>
+<p id="emailStatus" class="text-sm mt-2 text-center font-medium"></p>
+</div>
+<div class="flex gap-3 justify-center">
+<button onclick="window.print()" class="bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold" data-ar="🖨️ طباعة النتيجة" data-en="🖨️ Print Results">🖨️ طباعة النتيجة</button>
+</div>
+</div>
+
+<footer class="max-w-5xl mx-auto mt-10 mb-8 text-center text-gray-500 text-sm no-print">
+© <span data-ar="IGCSE Physics Exam" data-en="IGCSE Physics Exam">IGCSE Physics Exam</span> | Mr. Mohammed Hesham ⚡
+</footer>
+
+<script>
+const PUBLIC_KEY = "Rb3Lq8tXaFmc5YHUH";
+const SERVICE_ID = "service_w15m64i";
+const TEMPLATE_ID = "template_5b0u2tq";
+const TARGET_EMAIL = "mohammedhesham872@gmail.com";
+emailjs.init(PUBLIC_KEY);
+
+const STORAGE_KEY = 'igcse_physics_comprehensive_exam_v2';
+const TOTAL_TIME = 7200;
+const TOTAL_QUESTIONS = 30;
+const TOTAL_SECTIONS = 5;
+
+let currentSeed = null;
+let answersVisible = false;
+let saveIndicatorTimeout = null;
+
+function mulberry32(a) {
+    return function() {
+        var t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+}
+let rng = null;
+
+function showSaveIndicator() {
+    const indicator = document.getElementById('saveIndicator');
+    indicator.classList.add('show');
+    if (saveIndicatorTimeout) clearTimeout(saveIndicatorTimeout);
+    saveIndicatorTimeout = setTimeout(() => indicator.classList.remove('show'), 1500);
+}
+
+function saveState(showIndicator = true) {
+    try {
+        const state = {
+            seed: currentSeed, lang: currentLang,
+            studentName: document.getElementById('studentName').value,
+            studentClass: document.getElementById('studentClass').value,
+            examDate: document.getElementById('examDate').value,
+            answers: getSelectedAnswers(),
+            timeRemaining: timeRemaining,
+            answersVisible: answersVisible, savedAt: Date.now()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        if (showIndicator) showSaveIndicator();
+    } catch (e) { console.error('Save error:', e); }
+}
+
+function loadState() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : null;
+    } catch (e) { return null; }
+}
+
+function getSelectedAnswers() {
+    const answers = {};
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected) answers[i] = selected.value;
+    }
+    return answers;
+}
+
+function restoreAnswers(answers) {
+    if (!answers) return;
+    for (const [idx, val] of Object.entries(answers)) {
+        const radio = document.querySelector(`input[name="q${idx}"][value="${val}"]`);
+        if (radio) radio.checked = true;
+    }
+}
+
+function clearProgress() {
+    const msg = currentLang === 'ar' ? '⚠️ هل أنت متأكد من مسح كل التقدم؟' : '️ Clear all progress?';
+    if (confirm(msg)) { localStorage.removeItem(STORAGE_KEY); location.reload(); }
+}
+
+function setupAnswerListeners() {
+    document.getElementById('exam-content').addEventListener('change', (e) => {
+        if (e.target.type === 'radio') saveState();
+    });
+}
+
+function setupInputListeners() {
+    ['studentName', 'studentClass', 'examDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => saveState(false));
+            el.addEventListener('blur', () => saveState());
+        }
+    });
+}
+
+// ==================== SVG Diagrams ====================
+const svgGraphs = {
+    mirror_reflection: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#991b1b" font-weight="bold">🪞 انعكاس الضوء على المرآة</text>
+        <line x1="50" y1="200" x2="350" y2="200" stroke="#374151" stroke-width="4"/>
+        <line x1="200" y1="200" x2="200" y2="80" stroke="#374151" stroke-width="2" stroke-dasharray="4"/>
+        <text x="210" y="90" font-size="11" fill="#374151">Normal</text>
+        <line x1="100" y1="100" x2="200" y2="200" stroke="#dc2626" stroke-width="3"/>
+        <line x1="200" y1="200" x2="300" y2="100" stroke="#dc2626" stroke-width="3"/>
+        <text x="130" y="140" font-size="11" fill="#dc2626" font-weight="bold">Incident</text>
+        <text x="250" y="140" font-size="11" fill="#dc2626" font-weight="bold">Reflected</text>
+        <text x="170" y="180" font-size="11" fill="#dc2626">i</text>
+        <text x="215" y="180" font-size="11" fill="#dc2626">r</text>
+        <text x="200" y="240" text-anchor="middle" font-size="11" fill="#991b1b">Angle of incidence = Angle of reflection</text>
+    </svg>`,
+    
+    em_spectrum: `<svg class="svg-graph" width="400" height="220" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="210" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">🌈 الطيف الكهرومغناطيسي</text>
+        <rect x="20" y="50" width="50" height="40" fill="#ef4444" stroke="#991b1b" stroke-width="1"/>
+        <text x="45" y="75" text-anchor="middle" font-size="9" fill="white">Radio</text>
+        <rect x="75" y="50" width="50" height="40" fill="#f97316" stroke="#9a3412" stroke-width="1"/>
+        <text x="100" y="75" text-anchor="middle" font-size="9" fill="white">Micro</text>
+        <rect x="130" y="50" width="50" height="40" fill="#eab308" stroke="#a16207" stroke-width="1"/>
+        <text x="155" y="75" text-anchor="middle" font-size="9" fill="white">IR</text>
+        <rect x="185" y="50" width="50" height="40" fill="#22c55e" stroke="#15803d" stroke-width="1"/>
+        <text x="210" y="75" text-anchor="middle" font-size="9" fill="white">Visible</text>
+        <rect x="240" y="50" width="50" height="40" fill="#3b82f6" stroke="#1e40af" stroke-width="1"/>
+        <text x="265" y="75" text-anchor="middle" font-size="9" fill="white">UV</text>
+        <rect x="295" y="50" width="50" height="40" fill="#8b5cf6" stroke="#5b21b6" stroke-width="1"/>
+        <text x="320" y="75" text-anchor="middle" font-size="9" fill="white">X-ray</text>
+        <rect x="350" y="50" width="30" height="40" fill="#a855f7" stroke="#7e22ce" stroke-width="1"/>
+        <text x="365" y="75" text-anchor="middle" font-size="9" fill="white">γ</text>
+        <text x="200" y="120" text-anchor="middle" font-size="11" fill="#92400e">← Low freq | High freq →</text>
+        <text x="200" y="145" text-anchor="middle" font-size="11" fill="#92400e">← Long λ | Short λ →</text>
+        <text x="200" y="175" text-anchor="middle" font-size="11" fill="#92400e">Blue has higher frequency than red</text>
+        <text x="200" y="200" text-anchor="middle" font-size="11" fill="#92400e">Radio = least dangerous, Gamma = most dangerous</text>
+    </svg>`,
+    
+    velocity_time: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#1e40af" font-weight="bold"> Velocity-Time Graph</text>
+        <line x1="50" y1="220" x2="370" y2="220" stroke="#374151" stroke-width="2"/>
+        <line x1="50" y1="220" x2="50" y2="40" stroke="#374151" stroke-width="2"/>
+        <text x="375" y="215" font-size="11" fill="#374151">Time (s)</text>
+        <text x="20" y="130" text-anchor="middle" font-size="11" fill="#374151" transform="rotate(-90 20 130)">Velocity (m/s)</text>
+        <text x="100" y="235" text-anchor="middle" font-size="10" fill="#374151">5</text>
+        <text x="200" y="235" text-anchor="middle" font-size="10" fill="#374151">10</text>
+        <text x="300" y="235" text-anchor="middle" font-size="10" fill="#374151">15</text>
+        <text x="35" y="130" text-anchor="end" font-size="10" fill="#374151">10</text>
+        <path d="M 50 220 L 100 130 L 200 130 L 250 220" fill="none" stroke="#2563eb" stroke-width="3"/>
+        <text x="75" y="170" font-size="10" fill="#2563eb" font-weight="bold">TS: Acceleration</text>
+        <text x="150" y="120" font-size="10" fill="#2563eb" font-weight="bold">SR: Constant</text>
+        <text x="225" y="170" font-size="10" fill="#2563eb" font-weight="bold">RQ: Deceleration</text>
+        <text x="200" y="250" text-anchor="middle" font-size="11" fill="#1e40af">Area under graph = Distance</text>
+    </svg>`,
+    
+    atom_structure: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#9f1239" font-weight="bold">⚛️ بنية الذرة - Atom Structure</text>
+        <circle cx="200" cy="140" r="40" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="145" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Nucleus</text>
+        <text x="200" y="160" text-anchor="middle" font-size="9" fill="#92400e">Protons + Neutrons</text>
+        <ellipse cx="200" cy="140" rx="80" ry="50" fill="none" stroke="#ec4899" stroke-width="2"/>
+        <circle cx="120" cy="140" r="6" fill="#dc2626"/>
+        <circle cx="280" cy="140" r="6" fill="#dc2626"/>
+        <circle cx="200" cy="90" r="6" fill="#dc2626"/>
+        <circle cx="200" cy="190" r="6" fill="#dc2626"/>
+        <text x="120" y="160" text-anchor="middle" font-size="9" fill="#dc2626">e⁻</text>
+        <text x="280" y="160" text-anchor="middle" font-size="9" fill="#dc2626">e⁻</text>
+        <text x="200" y="80" text-anchor="middle" font-size="9" fill="#dc2626">e⁻</text>
+        <text x="200" y="210" text-anchor="middle" font-size="9" fill="#dc2626">e⁻</text>
+        <text x="200" y="240" text-anchor="middle" font-size="11" fill="#9f1239">Electrons orbit the nucleus</text>
+    </svg>`,
+    
+    half_life: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#065f46" font-weight="bold">☢️ عمر النصف - Half-life</text>
+        <line x1="50" y1="220" x2="370" y2="220" stroke="#374151" stroke-width="2"/>
+        <line x1="50" y1="220" x2="50" y2="40" stroke="#374151" stroke-width="2"/>
+        <text x="375" y="215" font-size="11" fill="#374151">Time</text>
+        <text x="20" y="130" text-anchor="middle" font-size="11" fill="#374151" transform="rotate(-90 20 130)">Mass</text>
+        <path d="M 50 60 Q 120 100 180 140 Q 240 170 300 190 Q 340 200 360 210" fill="none" stroke="#10b981" stroke-width="3"/>
+        <line x1="50" y1="60" x2="370" y2="60" stroke="#dc2626" stroke-width="1" stroke-dasharray="4"/>
+        <text x="30" y="55" font-size="9" fill="#dc2626">120g</text>
+        <line x1="50" y1="120" x2="370" y2="120" stroke="#dc2626" stroke-width="1" stroke-dasharray="4"/>
+        <text x="30" y="115" font-size="9" fill="#dc2626">60g</text>
+        <line x1="50" y1="150" x2="370" y2="150" stroke="#dc2626" stroke-width="1" stroke-dasharray="4"/>
+        <text x="30" y="145" font-size="9" fill="#dc2626">30g</text>
+        <line x1="50" y1="170" x2="370" y2="170" stroke="#dc2626" stroke-width="1" stroke-dasharray="4"/>
+        <text x="30" y="165" font-size="9" fill="#dc2626">15g</text>
+        <text x="100" y="235" font-size="9" fill="#374151">10 min</text>
+        <text x="180" y="235" font-size="9" fill="#374151">20 min</text>
+        <text x="260" y="235" font-size="9" fill="#374151">30 min</text>
+        <text x="200" y="250" text-anchor="middle" font-size="11" fill="#065f46">After 3 half-lives: 120g → 15g</text>
+    </svg>`,
+    
+    speed_time_graph: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">🚗 مسافة التوقف - Stopping Distance</text>
+        <line x1="50" y1="220" x2="370" y2="220" stroke="#374151" stroke-width="2"/>
+        <line x1="50" y1="220" x2="50" y2="40" stroke="#374151" stroke-width="2"/>
+        <text x="375" y="215" font-size="11" fill="#374151">Time</text>
+        <text x="20" y="130" text-anchor="middle" font-size="11" fill="#374151" transform="rotate(-90 20 130)">Speed</text>
+        <line x1="50" y1="60" x2="150" y2="60" stroke="#2563eb" stroke-width="3"/>
+        <line x1="150" y1="60" x2="250" y2="220" stroke="#dc2626" stroke-width="3"/>
+        <text x="100" y="50" text-anchor="middle" font-size="10" fill="#2563eb" font-weight="bold">Thinking</text>
+        <text x="200" y="150" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="bold">Braking</text>
+        <text x="200" y="245" text-anchor="middle" font-size="11" fill="#92400e">Stopping distance = Thinking + Braking</text>
+    </svg>`,
+    
+    planets: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#5b21b6" font-weight="bold">🌍 الجاذبية والكواكب</text>
+        <circle cx="200" cy="130" r="30" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="135" text-anchor="middle" font-size="10" fill="#92400e" font-weight="bold">Sun</text>
+        <circle cx="100" cy="130" r="8" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
+        <text x="100" y="155" text-anchor="middle" font-size="9" fill="#991b1b">Mercury</text>
+        <circle cx="140" cy="130" r="10" fill="#f97316" stroke="#9a3412" stroke-width="2"/>
+        <text x="140" y="155" text-anchor="middle" font-size="9" fill="#9a3412">Venus</text>
+        <circle cx="260" cy="130" r="12" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+        <text x="260" y="155" text-anchor="middle" font-size="9" fill="#1e40af">Earth</text>
+        <circle cx="300" cy="130" r="10" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+        <text x="300" y="155" text-anchor="middle" font-size="9" fill="#991b1b">Mars</text>
+        <circle cx="340" cy="130" r="18" fill="#a855f7" stroke="#7e22ce" stroke-width="2"/>
+        <text x="340" y="155" text-anchor="middle" font-size="9" fill="#7e22ce">Jupiter</text>
+        <text x="200" y="240" text-anchor="middle" font-size="11" fill="#5b21b6">Earth in habitable zone</text>
+    </svg>`,
+    
+    wave_diagram: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#9f1239" font-weight="bold">🌊 الموجات - Waves</text>
+        <line x1="50" y1="130" x2="370" y2="130" stroke="#374151" stroke-width="2"/>
+        <path d="M 50 130 Q 90 80 130 130 Q 170 180 210 130 Q 250 80 290 130 Q 330 180 370 130" fill="none" stroke="#ec4899" stroke-width="3"/>
+        <line x1="130" y1="80" x2="290" y2="80" stroke="#dc2626" stroke-width="2" stroke-dasharray="4"/>
+        <text x="210" y="75" text-anchor="middle" font-size="11" fill="#dc2626" font-weight="bold">λ (Wavelength)</text>
+        <line x1="210" y1="130" x2="210" y2="80" stroke="#2563eb" stroke-width="2"/>
+        <text x="220" y="110" font-size="11" fill="#2563eb" font-weight="bold">A (Amplitude)</text>
+        <text x="200" y="240" text-anchor="middle" font-size="11" fill="#9f1239">Transverse wave: v = f × λ</text>
+    </svg>`,
+    
+    nuclear_fission: `<svg class="svg-graph" width="400" height="260" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="250" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">⚛️ الانشطار النووي - Nuclear Fission</text>
+        <circle cx="150" cy="130" r="40" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+        <text x="150" y="135" text-anchor="middle" font-size="10" fill="#92400e" font-weight="bold">U-235</text>
+        <circle cx="100" cy="130" r="8" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+        <text x="100" y="135" text-anchor="middle" font-size="8" fill="white">n</text>
+        <path d="M 108 130 L 110 130" stroke="#3b82f6" stroke-width="2"/>
+        <circle cx="250" cy="100" r="25" fill="#f87171" stroke="#dc2626" stroke-width="2"/>
+        <text x="250" y="105" text-anchor="middle" font-size="9" fill="white">Ba</text>
+        <circle cx="250" cy="160" r="20" fill="#f87171" stroke="#dc2626" stroke-width="2"/>
+        <text x="250" y="165" text-anchor="middle" font-size="9" fill="white">Kr</text>
+        <circle cx="300" cy="130" r="6" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+        <circle cx="320" cy="110" r="6" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+        <circle cx="320" cy="150" r="6" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+        <text x="200" y="240" text-anchor="middle" font-size="11" fill="#92400e">Neutron + U-235 → Ba + Kr + 3n + Energy</text>
+    </svg>`
+};
+
+// ==================== EXAM DATA - 30 QUESTIONS ====================
+const originalExamData = {
+    sections: [
+        {
+            id: 'sec1',
+            title: { ar: ' القسم 1: الضوء والبصريات (Q1-Q6)', en: '🔹 Section 1: Light & Optics (Q1-Q6)' },
+            questions: [
+                {
+                    q: { ar: 'في انعكاس الضوء على المرآة، ما العلاقة بين زاوية السقوط وزاوية الانعكاس؟', en: 'In light reflection on a mirror, what is the relationship between angle of incidence and angle of reflection?' },
+                    svg: svgGraphs.mirror_reflection,
+                    options: [
+                        { ar: 'متساويتان (i = r)', en: 'Equal (i = r)' },
+                        { ar: 'زاوية السقوط أكبر', en: 'Angle of incidence is larger' },
+                        { ar: 'زاوية الانعكاس أكبر', en: 'Angle of reflection is larger' },
+                        { ar: 'لا علاقة', en: 'No relationship' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'زاوية السقوط = زاوية الانعكاس (قانون الانعكاس)', en: 'Angle of incidence = Angle of reflection (Law of Reflection)' }
+                },
+                {
+                    q: { ar: 'عدسة بعدها البؤري 17 سم. ما قوتها بالديوبتر؟', en: 'Lens with focal length 17 cm. What is its power in diopters?' },
+                    options: [
+                        { ar: '<span class="math-display">5.88 D</span>', en: '<span class="math-display">5.88 D</span>' },
+                        { ar: '<span class="math-display">0.17 D</span>', en: '<span class="math-display">0.17 D</span>' },
+                        { ar: '<span class="math-display">17 D</span>', en: '<span class="math-display">17 D</span>' },
+                        { ar: '<span class="math-display">0.059 D</span>', en: '<span class="math-display">0.059 D</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'P = 1/f = 1/0.17 = 5.88 ديوبتر', en: 'P = 1/f = 1/0.17 = 5.88 diopters' }
+                },
+                {
+                    q: { ar: 'لماذا تبدو الورقة خضراء تحت الضوء الأبيض؟', en: 'Why does paper appear green under white light?' },
+                    options: [
+                        { ar: 'تعكس الضوء الأخضر وتمتص الألوان الأخرى', en: 'Reflects green light and absorbs other colors' },
+                        { ar: 'تمتص الضوء الأخضر فقط', en: 'Absorbs only green light' },
+                        { ar: 'تبعث ضوءاً أخضر', en: 'Emits green light' },
+                        { ar: 'تنكسر الضوء الأخضر', en: 'Refracts green light' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'الورقة الخضراء تعكس الضوء الأخضر وتمتص باقي الألوان', en: 'Green paper reflects green light and absorbs other colors' }
+                },
+                {
+                    q: { ar: 'أي إشعاع كهرومغناطيسي يُستخدم في كاميرات الرؤية الليلية؟', en: 'Which EM radiation is used in night vision cameras?' },
+                    svg: svgGraphs.em_spectrum,
+                    options: [
+                        { ar: 'الأشعة تحت الحمراء (Infrared)', en: 'Infrared' },
+                        { ar: 'الأشعة فوق البنفسجية (UV)', en: 'Ultraviolet' },
+                        { ar: 'الموجات الراديوية (Radio)', en: 'Radio waves' },
+                        { ar: 'أشعة غاما (Gamma)', en: 'Gamma rays' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'الأشعة تحت الحمراء تُستخدم في الرؤية الليلية', en: 'Infrared is used in night vision' }
+                },
+                {
+                    q: { ar: 'أي لون في الطيف المرئي له أعلى تردد؟', en: 'Which color in visible spectrum has highest frequency?' },
+                    options: [
+                        { ar: 'الأزرق (Blue)', en: 'Blue' },
+                        { ar: 'الأحمر (Red)', en: 'Red' },
+                        { ar: 'الأخضر (Green)', en: 'Green' },
+                        { ar: 'الأصفر (Yellow)', en: 'Yellow' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'التردد يزداد من الأحمر إلى البنفسجي، والأزرق أعلى من الأحمر', en: 'Frequency increases from red to violet, blue is higher than red' }
+                },
+                {
+                    q: { ar: 'في انكسار الضوء، ما العلاقة بين زاوية السقوط وزاوية الانكسار؟', en: 'In light refraction, what is the relationship between angle of incidence and refraction?' },
+                    options: [
+                        { ar: 'كلما زادت زاوية السقوط، زادت زاوية الانكسار', en: 'As angle of incidence increases, angle of refraction increases' },
+                        { ar: 'كلما زادت زاوية السقوط، قلت زاوية الانكسار', en: 'As angle of incidence increases, angle of refraction decreases' },
+                        { ar: 'متساويتان دائماً', en: 'Always equal' },
+                        { ar: 'لا علاقة', en: 'No relationship' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'علاقة طردية غير خطية: كلما زادت زاوية السقوط، زادت زاوية الانكسار', en: 'Non-linear direct relationship: as incidence angle increases, refraction angle increases' }
+                }
+            ]
+        },
+        {
+            id: 'sec2',
+            title: { ar: ' القسم 2: الحركة والسرعة (Q7-Q12)', en: '🔹 Section 2: Motion & Velocity (Q7-Q12)' },
+            questions: [
+                {
+                    q: { ar: 'في منحنى السرعة-الزمن، ماذا يمثل القسم SR (خط أفقي)؟', en: 'In velocity-time graph, what does section SR (horizontal line) represent?' },
+                    svg: svgGraphs.velocity_time,
+                    options: [
+                        { ar: 'سرعة ثابتة (حركة منتظمة)', en: 'Constant velocity (uniform motion)' },
+                        { ar: 'تسارع منتظم', en: 'Uniform acceleration' },
+                        { ar: 'تباطؤ', en: 'Deceleration' },
+                        { ar: 'سكون', en: 'Rest' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'الخط الأفقي في منحنى v-t يعني سرعة ثابتة', en: 'Horizontal line in v-t graph means constant velocity' }
+                },
+                {
+                    q: { ar: 'سيارة تزيد سرعتها من 0 إلى 10 م/ث في 5 ثوانٍ. ما التسارع؟', en: 'Car increases speed from 0 to 10 m/s in 5 seconds. What is acceleration?' },
+                    options: [
+                        { ar: '<span class="math-display">2 m/s²</span>', en: '<span class="math-display">2 m/s²</span>' },
+                        { ar: '<span class="math-display">50 m/s²</span>', en: '<span class="math-display">50 m/s²</span>' },
+                        { ar: '<span class="math-display">0.5 m/s²</span>', en: '<span class="math-display">0.5 m/s²</span>' },
+                        { ar: '<span class="math-display">10 m/s²</span>', en: '<span class="math-display">10 m/s²</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a = Δv/Δt = (10-0)/5 = 2 m/s²', en: 'a = Δv/Δt = (10-0)/5 = 2 m/s²' }
+                },
+                {
+                    q: { ar: 'في منحنى السرعة-الزمن، ماذا تمثل المساحة تحت المنحنى؟', en: 'In velocity-time graph, what does area under curve represent?' },
+                    options: [
+                        { ar: 'المسافة المقطوعة', en: 'Distance traveled' },
+                        { ar: 'التسارع', en: 'Acceleration' },
+                        { ar: 'السرعة', en: 'Velocity' },
+                        { ar: 'القوة', en: 'Force' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'المساحة تحت منحنى v-t = المسافة', en: 'Area under v-t graph = distance' }
+                },
+                {
+                    q: { ar: 'سيارة تسير بسرعة 10 م/ث لمدة 10 ثوانٍ. ما المسافة؟', en: 'Car travels at 10 m/s for 10 seconds. What is distance?' },
+                    options: [
+                        { ar: '<span class="math-display">100 m</span>', en: '<span class="math-display">100 m</span>' },
+                        { ar: '<span class="math-display">20 m</span>', en: '<span class="math-display">20 m</span>' },
+                        { ar: '<span class="math-display">1000 m</span>', en: '<span class="math-display">1000 m</span>' },
+                        { ar: '<span class="math-display">1 m</span>', en: '<span class="math-display">1 m</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'المسافة = السرعة × الزمن = 10 × 10 = 100 م', en: 'Distance = speed × time = 10 × 10 = 100 m' }
+                },
+                {
+                    q: { ar: 'ما زمن التفاعل البشري النموذجي؟', en: 'What is typical human reaction time?' },
+                    svg: svgGraphs.speed_time_graph,
+                    options: [
+                        { ar: '<span class="math-display">0.27 s</span>', en: '<span class="math-display">0.27 s</span>' },
+                        { ar: '<span class="math-display">1.0 s</span>', en: '<span class="math-display">1.0 s</span>' },
+                        { ar: '<span class="math-display">0.05 s</span>', en: '<span class="math-display">0.05 s</span>' },
+                        { ar: '<span class="math-display">2.0 s</span>', en: '<span class="math-display">2.0 s</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'زمن التفاعل البشري النموذجي ≈ 0.27 ثانية', en: 'Typical human reaction time ≈ 0.27 seconds' }
+                },
+                {
+                    q: { ar: 'ما العاملان الرئيسيان اللذان يؤثران على مسافة التوقف؟', en: 'What are two main factors affecting stopping distance?' },
+                    options: [
+                        { ar: 'سرعة المركبة وحالة الطريق', en: 'Vehicle speed and road condition' },
+                        { ar: 'لون المركبة وحجمها', en: 'Vehicle color and size' },
+                        { ar: 'نوع الوقود وعدد الركاب', en: 'Fuel type and number of passengers' },
+                        { ar: 'عمر السائق فقط', en: 'Driver age only' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'سرعة المركبة، حالة الطريق (جاف/مبلل)، حالة المكابح، زمن تفكير السائق', en: 'Vehicle speed, road condition (dry/wet), brake condition, driver thinking time' }
+                }
+            ]
+        },
+        {
+            id: 'sec3',
+            title: { ar: '🔹 القسم 3: الذرة والنشاط الإشعاعي (Q13-Q18)', en: '🔹 Section 3: Atom & Radioactivity (Q13-Q18)' },
+            questions: [
+                {
+                    q: { ar: 'ما شحنة النيوترون؟', en: 'What is the charge of a neutron?' },
+                    svg: svgGraphs.atom_structure,
+                    options: [
+                        { ar: 'متعادلة (0)', en: 'Neutral (0)' },
+                        { ar: 'موجبة (+)', en: 'Positive (+)' },
+                        { ar: 'سالبة (-)', en: 'Negative (-)' },
+                        { ar: 'مزدوجة', en: 'Double' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'النيوترون متعادل الشحنة (0)', en: 'Neutron has neutral charge (0)' }
+                },
+                {
+                    q: { ar: 'ذرة البريليوم: العدد الكتلي = 9، العدد الذري = 4. كم نيوترون؟', en: 'Beryllium atom: mass number = 9, atomic number = 4. How many neutrons?' },
+                    options: [
+                        { ar: '<span class="math-display">5</span>', en: '<span class="math-display">5</span>' },
+                        { ar: '<span class="math-display">9</span>', en: '<span class="math-display">9</span>' },
+                        { ar: '<span class="math-display">4</span>', en: '<span class="math-display">4</span>' },
+                        { ar: '<span class="math-display">13</span>', en: '<span class="math-display">13</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'النيوترونات = العدد الكتلي - العدد الذري = 9 - 4 = 5', en: 'Neutrons = mass number - atomic number = 9 - 4 = 5' }
+                },
+                {
+                    q: { ar: 'ما وحدة النشاط الإشعاعي؟', en: 'What is the unit of radioactivity?' },
+                    options: [
+                        { ar: 'البيكريل (Bq)', en: 'Becquerel (Bq)' },
+                        { ar: 'الجول (J)', en: 'Joule (J)' },
+                        { ar: 'النيوتن (N)', en: 'Newton (N)' },
+                        { ar: 'الفولت (V)', en: 'Volt (V)' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'البيكريل (Bq) هو وحدة النشاط الإشعاعي', en: 'Becquerel (Bq) is the unit of radioactivity' }
+                },
+                {
+                    q: { ar: 'عينة N-13 كتلتها 120g، عمر النصف 10 دقائق. الكتلة المتبقية بعد 30 دقيقة؟', en: 'N-13 sample mass 120g, half-life 10 min. Remaining mass after 30 min?' },
+                    svg: svgGraphs.half_life,
+                    options: [
+                        { ar: '<span class="math-display">15 g</span>', en: '<span class="math-display">15 g</span>' },
+                        { ar: '<span class="math-display">30 g</span>', en: '<span class="math-display">30 g</span>' },
+                        { ar: '<span class="math-display">60 g</span>', en: '<span class="math-display">60 g</span>' },
+                        { ar: '<span class="math-display">40 g</span>', en: '<span class="math-display">40 g</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: '30 ÷ 10 = 3 أنصاف عمر. 120 × (1/2)³ = 120 × 1/8 = 15g', en: '30 ÷ 10 = 3 half-lives. 120 × (1/2)³ = 120 × 1/8 = 15g' }
+                },
+                {
+                    q: { ar: 'ما نوع الإشعاع الذي يوقفه الورق؟', en: 'What type of radiation is stopped by paper?' },
+                    options: [
+                        { ar: 'أشعة ألفا (Alpha)', en: 'Alpha rays' },
+                        { ar: 'أشعة بيتا (Beta)', en: 'Beta rays' },
+                        { ar: 'أشعة غاما (Gamma)', en: 'Gamma rays' },
+                        { ar: 'الأشعة السينية (X-rays)', en: 'X-rays' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'أشعة ألفا توقفها ورقة، بيتا يوقفها ألومنيوم، غاما يوقفها رصاص', en: 'Alpha stopped by paper, Beta by aluminum, Gamma by lead' }
+                },
+                {
+                    q: { ar: 'ماذا يحدث عندما تلتقي البوزيترونات بالإلكترونات؟', en: 'What happens when positrons meet electrons?' },
+                    options: [
+                        { ar: 'تفني بعضها وتتحول إلى طاقة (أشعة غاما)', en: 'Annihilate each other and convert to energy (gamma rays)' },
+                        { ar: 'تتحد لتكوين ذرة', en: 'Combine to form atom' },
+                        { ar: 'تتنافر', en: 'Repel each other' },
+                        { ar: 'لا شيء', en: 'Nothing' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'البوزيترون والإلكترون يفنيان بعضهما ويتحولان إلى طاقة (أشعة غاما)', en: 'Positron and electron annihilate each other and convert to energy (gamma rays)' }
+                }
+            ]
+        },
+        {
+            id: 'sec4',
+            title: { ar: '🔹 القسم 4: الجاذبية والقوى (Q19-Q24)', en: '🔹 Section 4: Gravity & Forces (Q19-Q24)' },
+            questions: [
+                {
+                    q: { ar: 'جسم وزنه على الأرض 730 N. ما كتلته؟ (g = 10 N/kg)', en: 'Object weighs 730 N on Earth. What is its mass? (g = 10 N/kg)' },
+                    svg: svgGraphs.planets,
+                    options: [
+                        { ar: '<span class="math-display">73 kg</span>', en: '<span class="math-display">73 kg</span>' },
+                        { ar: '<span class="math-display">730 kg</span>', en: '<span class="math-display">730 kg</span>' },
+                        { ar: '<span class="math-display">7.3 kg</span>', en: '<span class="math-display">7.3 kg</span>' },
+                        { ar: '<span class="math-display">7300 kg</span>', en: '<span class="math-display">7300 kg</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'm = W/g = 730/10 = 73 kg', en: 'm = W/g = 730/10 = 73 kg' }
+                },
+                {
+                    q: { ar: 'نفس الجسم على القمر (g = 1.6 N/kg). ما وزنه؟', en: 'Same object on Moon (g = 1.6 N/kg). What is its weight?' },
+                    options: [
+                        { ar: '<span class="math-display">116.8 N</span>', en: '<span class="math-display">116.8 N</span>' },
+                        { ar: '<span class="math-display">730 N</span>', en: '<span class="math-display">730 N</span>' },
+                        { ar: '<span class="math-display">73 N</span>', en: '<span class="math-display">73 N</span>' },
+                        { ar: '<span class="math-display">1168 N</span>', en: '<span class="math-display">1168 N</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'W = mg = 73 × 1.6 = 116.8 N', en: 'W = mg = 73 × 1.6 = 116.8 N' }
+                },
+                {
+                    q: { ar: 'الكويكبات تدور حول:', en: 'Asteroids orbit around:' },
+                    options: [
+                        { ar: 'الشمس', en: 'The Sun' },
+                        { ar: 'الأرض', en: 'Earth' },
+                        { ar: 'المشتري', en: 'Jupiter' },
+                        { ar: 'القمر', en: 'The Moon' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'الكويكبات تدور حول الشمس', en: 'Asteroids orbit the Sun' }
+                },
+                {
+                    q: { ar: 'أي كوكب في المنطقة الصالحة للحياة (Habitable Zone)؟', en: 'Which planet is in the habitable zone?' },
+                    options: [
+                        { ar: 'الأرض (Earth)', en: 'Earth' },
+                        { ar: 'عطارد (Mercury)', en: 'Mercury' },
+                        { ar: 'المشتري (Jupiter)', en: 'Jupiter' },
+                        { ar: 'الزهرة (Venus)', en: 'Venus' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'الأرض في المنطقة الصالحة للحياة حيث يوجد ماء سائل', en: 'Earth is in habitable zone where liquid water exists' }
+                },
+                {
+                    q: { ar: 'جسم كتلته 0.25 kg تؤثر عليه قوة 0.92 N. ما التسارع؟', en: 'Object mass 0.25 kg with force 0.92 N. What is acceleration?' },
+                    options: [
+                        { ar: '<span class="math-display">3.68 m/s²</span>', en: '<span class="math-display">3.68 m/s²</span>' },
+                        { ar: '<span class="math-display">0.23 m/s²</span>', en: '<span class="math-display">0.23 m/s²</span>' },
+                        { ar: '<span class="math-display">2.3 m/s²</span>', en: '<span class="math-display">2.3 m/s²</span>' },
+                        { ar: '<span class="math-display">36.8 m/s²</span>', en: '<span class="math-display">36.8 m/s²</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a = F/m = 0.92/0.25 = 3.68 m/s²', en: 'a = F/m = 0.92/0.25 = 3.68 m/s²' }
+                },
+                {
+                    q: { ar: 'إذا كان الوزن 2.5 N والقوة المحصلة 0.92 N، فما مقاومة الهواء؟', en: 'If weight is 2.5 N and resultant force is 0.92 N, what is air resistance?' },
+                    options: [
+                        { ar: '<span class="math-display">1.58 N</span>', en: '<span class="math-display">1.58 N</span>' },
+                        { ar: '<span class="math-display">3.42 N</span>', en: '<span class="math-display">3.42 N</span>' },
+                        { ar: '<span class="math-display">0.92 N</span>', en: '<span class="math-display">0.92 N</span>' },
+                        { ar: '<span class="math-display">2.5 N</span>', en: '<span class="math-display">2.5 N</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'مقاومة الهواء = الوزن - القوة المحصلة = 2.5 - 0.92 = 1.58 N', en: 'Air resistance = Weight - Resultant = 2.5 - 0.92 = 1.58 N' }
+                }
+            ]
+        },
+        {
+            id: 'sec5',
+            title: { ar: '🔹 القسم 5: الموجات والطاقة النووية (Q25-Q30)', en: '🔹 Section 5: Waves & Nuclear Energy (Q25-Q30)' },
+            questions: [
+                {
+                    q: { ar: 'موجة سعتها 20 سم. ما السعة الفعلية؟', en: 'Wave amplitude is 20 cm. What is actual amplitude?' },
+                    svg: svgGraphs.wave_diagram,
+                    options: [
+                        { ar: '<span class="math-display">10 cm</span>', en: '<span class="math-display">10 cm</span>' },
+                        { ar: '<span class="math-display">20 cm</span>', en: '<span class="math-display">20 cm</span>' },
+                        { ar: '<span class="math-display">40 cm</span>', en: '<span class="math-display">40 cm</span>' },
+                        { ar: '<span class="math-display">5 cm</span>', en: '<span class="math-display">5 cm</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'السعة = الارتفاع الكلي  2 = 20 ÷ 2 = 10 سم', en: 'Amplitude = total height ÷ 2 = 20 ÷ 2 = 10 cm' }
+                },
+                {
+                    q: { ar: 'ما مثال آخر على الموجة المستعرضة؟', en: 'What is another example of transverse wave?' },
+                    options: [
+                        { ar: 'الموجات الكهرومغناطيسية', en: 'Electromagnetic waves' },
+                        { ar: 'الموجات الصوتية', en: 'Sound waves' },
+                        { ar: 'موجات الزلازل P', en: 'P seismic waves' },
+                        { ar: 'موجات الضغط', en: 'Pressure waves' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'الموجات الكهرومغناطيسية وموجات الماء مستعرضة', en: 'EM waves and water waves are transverse' }
+                },
+                {
+                    q: { ar: 'بدون عازل: 33000 cpm، مع الورق: 25000 cpm، مع الرصاص: 4000 cpm. ما الإشعاعات المنبعثة؟', en: 'Without shield: 33000 cpm, with paper: 25000 cpm, with lead: 4000 cpm. What radiations emitted?' },
+                    options: [
+                        { ar: 'ألفا وغاما', en: 'Alpha and Gamma' },
+                        { ar: 'بيتا فقط', en: 'Beta only' },
+                        { ar: 'ألفا فقط', en: 'Alpha only' },
+                        { ar: 'غاما فقط', en: 'Gamma only' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'الورق أوقف بعض الإشعاع (ألفا)، والرصاص لم يوقفه تماماً (غاما)', en: 'Paper stopped some (alpha), lead did not stop all (gamma)' }
+                },
+                {
+                    q: { ar: 'ما وظيفة قضبان التحكم في المفاعل النووي؟', en: 'What is the function of control rods in nuclear reactor?' },
+                    svg: svgGraphs.nuclear_fission,
+                    options: [
+                        { ar: 'تمتص النيوترونات للتحكم في التفاعل', en: 'Absorb neutrons to control reaction' },
+                        { ar: 'تطلق النيوترونات', en: 'Release neutrons' },
+                        { ar: 'تبرد المفاعل', en: 'Cool the reactor' },
+                        { ar: 'تولد الكهرباء', en: 'Generate electricity' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'قضبان التحكم تمتص النيوترونات للتحكم في سرعة التفاعل المتسلسل', en: 'Control rods absorb neutrons to control chain reaction rate' }
+                },
+                {
+                    q: { ar: 'في الانشطار النووي، كم نيوتروناً يتحرر عادة؟', en: 'In nuclear fission, how many neutrons are typically released?' },
+                    options: [
+                        { ar: '2-3 نيوترونات', en: '2-3 neutrons' },
+                        { ar: '1 نيوترون', en: '1 neutron' },
+                        { ar: '10 نيوترونات', en: '10 neutrons' },
+                        { ar: '0 نيوترونات', en: '0 neutrons' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'ينشطر اليورانيوم ويطلق 2-3 نيوترونات جديدة', en: 'Uranium fissions and releases 2-3 new neutrons' }
+                },
+                {
+                    q: { ar: 'إذا كانت النسبة 4.4/8.9، فما النتيجة؟', en: 'If ratio is 4.4/8.9, what is the result?' },
+                    options: [
+                        { ar: '<span class="math-display">0.49</span>', en: '<span class="math-display">0.49</span>' },
+                        { ar: '<span class="math-display">0.5</span>', en: '<span class="math-display">0.5</span>' },
+                        { ar: '<span class="math-display">2.02</span>', en: '<span class="math-display">2.02</span>' },
+                        { ar: '<span class="math-display">4.5</span>', en: '<span class="math-display">4.5</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: '4.4 ÷ 8.9 ≈ 0.49', en: '4.4 ÷ 8.9 ≈ 0.49' }
+                }
+            ]
+        }
+    ]
+};
+
+function shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+let examData;
+let correctAnswersMap = {};
+let currentLang = 'ar';
+let timeRemaining = TOTAL_TIME;
+let timerInterval;
+
+function prepareShuffledExam() {
+    rng = mulberry32(currentSeed);
+    examData = JSON.parse(JSON.stringify(originalExamData));
+    correctAnswersMap = {};
+    let globalIdx = 0;
+    examData.sections.forEach((section) => {
+        section.questions = shuffleArray(section.questions);
+        section.questions.forEach((q) => {
+            const optionsWithCorrect = q.options.map((opt, idx) => ({ option: opt, isCorrect: idx === q.correct }));
+            const shuffledOptions = shuffleArray(optionsWithCorrect);
+            q.options = shuffledOptions.map(o => o.option);
+            q.correct = shuffledOptions.findIndex(o => o.isCorrect);
+            correctAnswersMap[globalIdx] = String.fromCharCode(97 + q.correct);
+            globalIdx++;
+        });
+    });
+}
+
+function reshuffleExam() {
+    const msg = currentLang === 'ar' ? '🔄 سيتم إنشاء أسئلة جديدة ومسح إجاباتك الحالية. هل أنت متأكد؟' : '🔄 New questions will be generated and current answers cleared. Are you sure?';
+    if (confirm(msg)) {
+        currentSeed = Date.now(); timeRemaining = TOTAL_TIME; answersVisible = false;
+        prepareShuffledExam(); renderExam(); saveState();
+        alert(currentLang === 'ar' ? '🎲 تم تغيير الأسئلة! حظاً موفقاً! 🍀' : '🎲 Questions changed! Good luck! ');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.body.classList.toggle('en-mode', lang === 'en');
+    document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+        el.innerHTML = lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    });
+    renderExam(); saveState(false);
+}
+
+function renderExam() {
+    const container = document.getElementById('exam-content');
+    const labels = { ar: { option: ['A', 'B', 'C', 'D'], answer: '✅ الإجابة:' }, en: { option: ['A', 'B', 'C', 'D'], answer: '✅ Answer:' } };
+    const lbl = labels[currentLang]; const isRTL = currentLang === 'ar';
+    let html = ''; let globalIdx = 0;
+    examData.sections.forEach((section, secIdx) => {
+        const badgeClass = ['module-1', 'module-2', 'module-3', 'module-4', 'module-5'][secIdx];
+        html += `<section class="bg-white p-6 rounded-2xl shadow-lg border-2 border-red-100">
+            <div class="text-center mb-4"><span class="module-badge ${badgeClass}">${section.title[currentLang]}</span></div>
+            <ol class="space-y-4 text-sm">`;
+        section.questions.forEach((q) => {
+            const bs = isRTL ? 'border-r-4 pr-4' : 'border-l-4 pl-4';
+            html += `<li class="${bs} border-red-400 py-2" id="q-${globalIdx}">
+                <strong class="text-red-700">${globalIdx + 1}.</strong> <span class="arabic-math">${q.q[currentLang]}</span><br>`;
+            if (q.svg) html += `<div class="graph-container">${q.svg}</div>`;
+            q.options.forEach((opt, oIdx) => {
+                const rs = isRTL ? 'mr-4 ml-2' : 'ml-4 mr-2';
+                html += `<label class="cursor-pointer block mt-2 ${isRTL ? 'mr-4' : 'ml-4'} hover:bg-red-50 rounded-lg p-2 transition">
+                    <input type="radio" name="q${globalIdx}" value="${String.fromCharCode(97 + oIdx)}" class="${rs}">
+                    <span class="arabic-math">${lbl.option[oIdx]}) ${opt[currentLang]}</span>
+                </label>`;
+            });
+            html += `<div class="answer-box text-green-700 mt-3 font-medium ${answersVisible ? '' : 'hidden'} bg-green-50 rounded-lg p-3 border border-green-200">
+                ${lbl.answer} ${lbl.option[q.correct]}) <span class="arabic-math">${q.options[q.correct][currentLang]}</span><br>
+                <span class="text-sm text-green-700 mt-2 block arabic-math">${q.answer[currentLang]}</span>
+            </div></li>`;
+            globalIdx++;
+        });
+        html += `</ol></section>`;
+    });
+    container.innerHTML = html;
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        timeRemaining--; updateTimerDisplay();
+        if (timeRemaining % 60 === 0) saveState(false);
+        if (timeRemaining <= 600) document.getElementById('timer').classList.add('timer-warning');
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            alert(currentLang === 'ar' ? "⏰ انتهى الوقت!" : "⏰ Time's up!");
+            gradeExam();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const m = Math.floor(timeRemaining / 60); const s = timeRemaining % 60;
+    document.getElementById('timer').textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+}
+
+function toggleAnswers() {
+    answersVisible = !answersVisible;
+    document.querySelectorAll('.answer-box').forEach(el => el.classList.toggle('hidden', !answersVisible));
+    saveState(false);
+}
+
+function gradeExam() {
+    let correctCount = 0;
+    const sectionScores = new Array(TOTAL_SECTIONS).fill(0);
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        const sel = document.querySelector(`input[name="q${i}"]:checked`);
+        const li = document.getElementById(`q-${i}`);
+        if (li) {
+            const isCorrect = sel && sel.value === correctAnswersMap[i];
+            if (isCorrect) { correctCount++; li.classList.add('correct'); li.classList.remove('incorrect'); sectionScores[Math.floor(i / 6)]++; }
+            else { li.classList.add('incorrect'); li.classList.remove('correct'); }
+        }
+    }
+    const score = Math.round((correctCount / TOTAL_QUESTIONS) * 100);
+    document.getElementById('res-total').textContent = `${score} / 100`;
+    document.getElementById('res-name').textContent = document.getElementById('studentName').value || (currentLang === 'ar' ? 'بطل' : 'Champion');
+    document.getElementById('res-date').textContent = new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-AE' : 'en-US');
+    const pc = document.getElementById('sections-performance'); pc.innerHTML = '';
+    examData.sections.forEach((s, idx) => {
+        pc.innerHTML += `<div class="flex justify-between items-center p-3 bg-white rounded-lg"><span class="text-gray-700">${s.title[currentLang]}</span><span class="font-bold text-red-700">${sectionScores[idx]}/6</span></div>`;
+    });
+    const badge = document.getElementById('success-badge');
+    document.getElementById('success-percent').textContent = `${score}%`;
+    if (currentLang === 'ar') {
+        if (score >= 90) { badge.textContent = '🌟 ممتاز جداً!'; badge.className = 'success-badge grade-excellent'; }
+        else if (score >= 75) { badge.textContent = '👏 ممتاز!'; badge.className = 'success-badge grade-good'; }
+        else if (score >= 50) { badge.textContent = '👍 جيد'; badge.className = 'success-badge grade-pass'; }
+        else { badge.textContent = '💪 حاول مرة أخرى'; badge.className = 'success-badge grade-fail'; }
+    } else {
+        if (score >= 90) { badge.textContent = '🌟 Outstanding!'; badge.className = 'success-badge grade-excellent'; }
+        else if (score >= 75) { badge.textContent = ' Excellent!'; badge.className = 'success-badge grade-good'; }
+        else if (score >= 50) { badge.textContent = '👍 Good'; badge.className = 'success-badge grade-pass'; }
+        else { badge.textContent = '💪 Try Again'; badge.className = 'success-badge grade-fail'; }
+    }
+    document.getElementById('results-panel').classList.remove('hidden');
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+    if (timerInterval) clearInterval(timerInterval);
+}
+
+function sendResultsToEmail() {
+    const btn = document.getElementById('sendEmailBtn');
+    const status = document.getElementById('emailStatus');
+    btn.disabled = true;
+    btn.textContent = currentLang === 'ar' ? ' جاري الإرسال...' : '⏳ Sending...';
+    const name = document.getElementById('studentName').value || 'N/A';
+    const studentClass = document.getElementById('studentClass').value || 'N/A';
+    const date = document.getElementById('examDate').value || new Date().toLocaleDateString();
+    const score = document.getElementById('res-total').textContent;
+    const successRate = document.getElementById('success-percent').textContent;
+    const badge = document.getElementById('success-badge').textContent;
+    let questionsHTML = ''; let globalIdx = 0;
+    examData.sections.forEach((section, sectionIdx) => {
+        questionsHTML += `<tr style="background:linear-gradient(135deg,#dc2626,#b91c1c);color:white;"><td colspan="5" style="padding:12px;font-weight:bold;">📌 ${currentLang==='ar'?'القسم':'Section'} ${sectionIdx+1}: ${section.title[currentLang]}</td></tr>`;
+        section.questions.forEach((q) => {
+            const sel = document.querySelector(`input[name="q${globalIdx}"]:checked`);
+            const sv = sel ? sel.value : null; const cv = correctAnswersMap[globalIdx]; const ic = sv === cv;
+            let sat = currentLang==='ar'?'❌ لم يجب':'❌ No answer'; let sac = '#dc2626';
+            if (sv) { const si = sv.charCodeAt(0)-97; sat = q.options[si][currentLang]; sac = ic?'#059669':'#dc2626'; }
+            const cat = q.options[q.correct][currentLang];
+            const rb = ic?'#f0fdf4':'#fef2f2'; const bl = ic?'4px solid #10b981':'4px solid #ef4444';
+            questionsHTML += `<tr style="background:${rb};border-right:${bl};"><td style="padding:10px;border:1px solid #e5e7eb;text-align:center;font-weight:bold;">${globalIdx+1}</td><td style="padding:10px;border:1px solid #e5e7eb;"><strong style="color:#b91c1c;">${currentLang==='ar'?'❓ السؤال:':'❓ Question:'}</strong><br><span style="font-size:13px;">${q.q[currentLang]}</span></td><td style="padding:10px;border:1px solid #e5e7eb;"><strong style="color:${sac};">${currentLang==='ar'?'✍️ إجابة الطالب:':'✍️ Student:'}</strong><br><span style="color:${sac};font-size:13px;">${sat}</span></td><td style="padding:10px;border:1px solid #e5e7eb;"><strong style="color:#059669;">${currentLang==='ar'?'✅ الصحيحة:':'✅ Correct:'}</strong><br><span style="color:#059669;font-size:13px;">${cat}</span></td><td style="padding:10px;border:1px solid #e5e7eb;text-align:center;">${ic?'<span style="font-size:24px;">✅</span>':'<span style="font-size:24px;">❌</span>'}</td></tr>`;
+            globalIdx++;
+        });
+    });
+    const answersHTML = `<div style="font-family:'Segoe UI',Tahoma,Arial;direction:${currentLang==='ar'?'rtl':'ltr'};"><div style="background:linear-gradient(135deg,#dc2626,#b91c1c);color:white;padding:20px;border-radius:10px 10px 0 0;text-align:center;"><h2 style="margin:0;">⚡ ${currentLang==='ar'?'نتيجة امتحان الفيزياء':'IGCSE Physics Exam Result'}</h2><p style="margin:5px 0 0;opacity:0.9;">Comprehensive - 30 Questions</p></div><div style="background:#fef2f2;padding:15px;"><table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;font-weight:bold;color:#b91c1c;">${currentLang==='ar'?'😊 الاسم:':'😊 Name:'}</td><td style="padding:8px;">${name}</td><td style="padding:8px;font-weight:bold;color:#b91c1c;">${currentLang==='ar'?'🏫 الشعبة:':' Class:'}</td><td style="padding:8px;">${studentClass}</td></tr><tr><td style="padding:8px;font-weight:bold;color:#b91c1c;">${currentLang==='ar'?'📅 التاريخ:':'📅 Date:'}</td><td style="padding:8px;">${date}</td><td style="padding:8px;font-weight:bold;color:#b91c1c;">${currentLang==='ar'?'🏆 التقدير:':'🏆 Grade:'}</td><td style="padding:8px;">${badge}</td></tr></table></div><div style="background:white;padding:20px;text-align:center;"><div style="display:inline-block;margin:0 15px;"><div style="font-size:32px;font-weight:bold;color:#dc2626;">${score}</div><div style="color:#6b7280;font-size:13px;">${currentLang==='ar'?'الدرجة':'Score'}</div></div><div style="display:inline-block;margin:0 15px;"><div style="font-size:32px;font-weight:bold;color:#059669;">${successRate}%</div><div style="color:#6b7280;font-size:13px;">${currentLang==='ar'?'النسبة':'Rate'}</div></div></div><table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="background:#dc2626;color:white;"><th style="padding:10px;border:1px solid #b91c1c;">#</th><th style="padding:10px;border:1px solid #b91c1c;">${currentLang==='ar'?'السؤال':'Question'}</th><th style="padding:10px;border:1px solid #b91c1c;">${currentLang==='ar'?'إجابة الطالب':'Student'}</th><th style="padding:10px;border:1px solid #b91c1c;">${currentLang==='ar'?'الصحيحة':'Correct'}</th><th style="padding:10px;border:1px solid #b91c1c;">${currentLang==='ar'?'النتيجة':'Result'}</th></tr></thead><tbody>${questionsHTML}</tbody></table><div style="background:linear-gradient(135deg,#fef2f2,#fee2e2);padding:15px;border-radius:0 0 10px 10px;"><p style="margin:0;color:#b91c1c;text-align:center;">⚡ <strong>${currentLang==='ar'?'أحسنت يا بطل! استمر في إتقان الفيزياء!':'Great job! Keep mastering Physics!'}</strong> ⚡</p><p style="margin:5px 0 0;color:#b91c1c;text-align:center;font-size:12px;">${currentLang==='ar'?'تم الإرسال تلقائياً | Mr. Mohammed Hesham':'Auto-sent | Mr. Mohammed Hesham'}</p></div></div>`;
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, { to_email: TARGET_EMAIL, student_name: name, student_class: studentClass, exam_date: date, total_score: score, success_rate: successRate, grade: badge, answers_table: answersHTML }).then(() => {
+        status.textContent = currentLang==='ar'?'✅ تم الإرسال بنجاح!':'✅ Sent successfully!'; status.style.color = '#059669'; btn.textContent = currentLang==='ar'?'✓ تم':'✓ Sent';
+    }).catch(err => {
+        status.textContent = currentLang==='ar'?'❌ حدث خطأ':'❌ Error'; status.style.color = '#dc2626'; btn.disabled = false; btn.textContent = currentLang==='ar'?'📧 حاول مرة أخرى':'📧 Try Again'; console.error(err);
+    });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const saved = loadState();
+    if (saved && saved.seed) {
+        currentSeed = saved.seed; currentLang = saved.lang || 'ar';
+        timeRemaining = saved.timeRemaining !== undefined ? saved.timeRemaining : TOTAL_TIME;
+        answersVisible = saved.answersVisible || false;
+        document.documentElement.lang = currentLang;
+        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('btn-ar').classList.toggle('active', currentLang === 'ar');
+        document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+        document.body.classList.toggle('en-mode', currentLang === 'en');
+        document.querySelectorAll('[data-ar][data-en]').forEach(el => { el.innerHTML = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en'); });
+    } else { currentSeed = Date.now(); }
+    prepareShuffledExam(); renderExam();
+    if (saved) {
+        if (saved.studentName) document.getElementById('studentName').value = saved.studentName;
+        if (saved.studentClass) document.getElementById('studentClass').value = saved.studentClass;
+        if (saved.examDate) document.getElementById('examDate').value = saved.examDate;
+        if (saved.answers) restoreAnswers(saved.answers);
+    }
+    setupAnswerListeners(); setupInputListeners(); startTimer();
+});
+window.addEventListener('beforeunload', () => saveState(false));
+</script>
+</body>
+</html>
